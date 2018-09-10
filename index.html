@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Ratio Checker | Find any ratio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Site Description Here">
+  <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="css/stack-interface.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="css/socicon.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="css/lightbox.min.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="css/flickity.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="css/iconsmind.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="css/jquery.steps.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="css/theme.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:200,300,400,400i,500,600,700%7CMerriweather:300,300i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-config" content="/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <script>
+      $(document).ready(function() {
+        $('#set-ratios').change(function() {
+           var ratio = $('#set-ratios').val();
+           var ratios = ratio.split(':');
+
+           $('#a1').val(ratios[0]);
+           $('#a2').val(ratios[1]);
+
+           $('#resize').trigger('click');
+
+           $('#set-ratios').val('');
+        });
+
+        $('#set-orientation').change(function() {
+           var orientation = $('#set-orientation').val();
+           var v1= $('#a1').val();
+           var v2= $('#a2').val();
+
+
+           if( orientation === 'portrait' ) {
+              if( v1 < v2 ) {
+                 $('#a1').val(v1);
+                 $('#a2').val(v2);
+              } else {
+                 $('#a1').val(v2);
+                 $('#a2').val(v1);
+              }
+           } else if( orientation === 'landscape' ) {
+              if( v1 < v2 ) {
+                 $('#a1').val(v2);
+                 $('#a2').val(v1);
+              } else {
+                 $('#a1').val(v1);
+                 $('#a2').val(v2);
+              }
+           }
+           $('#resize').trigger('click');
+           $('#set-orientation').val('');
+        });
+
+
+
+         var container = $('#container');
+         var pic = $('#pic');
+         var text = $('#text');
+         container.resizable({aspectRatio: true});
+         $('#resize').click(function() {
+            container.resizable("destroy");
+            container.css('width', 'auto');
+            container.css('height', 'auto');
+            var a1 = $('#a1').val();
+            var a2 = $('#a2').val();
+            var ratio = (a2 / a1) * 100;
+            var width = $('#size').val();
+
+            $('#pic').css('padding-top', ratio + '%' );
+            container.css('width', width );
+            container.resizable({aspectRatio: true});
+         });
+         setInterval( function() {
+           text.html( container.width() + ' x ' + container.height() );
+         }, 150);
+      });
+   </script>
+   
+</head>
+<body>
+  <a id="start"></a>
+  <section class="bar bar-3 bar--sm bg--secondary">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-6">
+                  <div class="bar__module">
+                      <span class="type--fade">Ratio Checker | Find the right ratio size.</span>
+                  </div>
+              </div>
+              <div class="col-lg-6 text-right text-left-xs text-left-sm">
+                  <div class="bar__module">
+                      <ul class="menu-horizontal">
+                          <li>
+                              <div class="modal-instance">
+                                  <a href="#" class="modal-trigger">Login</a>
+                                  <div class="modal-container">
+                                      <div class="modal-content section-modal">
+                                          <section class="unpad ">
+                                              <div class="container">
+                                                  <div class="row justify-content-center">
+                                                      <div class="col-md-6">
+                                                          <div class="boxed boxed--lg bg--white text-center feature">
+                                                              <div class="modal-close modal-close-cross"></div>
+                                                              <h3>Login to Your Account</h3>
+                                                              <a class="btn block btn--icon bg--facebook type--uppercase" href="#">
+                                                                  <span class="btn__text">
+                                                                      <i class="socicon-facebook"></i>
+                                                                      Login with Facebook
+                                                                  </span>
+                                                              </a>
+                                                              <a class="btn block btn--icon bg--twitter type--uppercase" href="#">
+                                                                  <span class="btn__text">
+                                                                      <i class="socicon-twitter"></i>
+                                                                      Login with Twitter
+                                                                  </span>
+                                                              </a>
+                                                              <hr data-title="OR">
+                                                              <div class="feature__body">
+                                                                  <form>
+                                                                      <div class="row">
+                                                                          <div class="col-md-12">
+                                                                              <input type="text" placeholder="Username" />
+                                                                          </div>
+                                                                          <div class="col-md-12">
+                                                                              <input type="password" placeholder="Password" />
+                                                                          </div>
+                                                                          <div class="col-md-12">
+                                                                              <button class="btn btn--primary type--uppercase" type="submit">Login</button>
+                                                                          </div>
+                                                                      </div>
+                                                                      <!--end of row-->
+                                                                  </form>
+                                                                  <span class="type--fine-print block">Dont have an account yet?
+                                                                      <a href="#">Create account</a>
+                                                                  </span>
+                                                                  <span class="type--fine-print block">Forgot your username or password?
+                                                                      <a href="#">Recover account</a>
+                                                                  </span>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <!--end of row-->
+                                              </div>
+                                              <!--end of container-->
+                                          </section>
+                                      </div>
+                                  </div>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="modal-instance">
+                                  <a href="#" class="modal-trigger">Create Account</a>
+                                  <div class="modal-container">
+                                      <div class="modal-content">
+                                          <section class="imageblock feature-large bg--white border--round ">
+                                              <div class="imageblock__content col-lg-5 col-md-3 pos-left">
+                                                  <div class="background-image-holder">
+                                                      <img alt="image" src="img/cowork-11.jpg" />
+                                                  </div>
+                                              </div>
+                                              <div class="container">
+                                                  <div class="row justify-content-end">
+                                                      <div class="col-lg-7">
+                                                          <div class="row justify-content-center">
+                                                              <div class="col-lg-10 col-md-11">
+                                                                  <h2>Create an account</h2>
+                                                                  <p class="lead">Get started for free, No credit card required &mdash; ever.</p>
+                                                                  <a class="btn block btn--icon bg--facebook type--uppercase" href="#">
+                                                                      <span class="btn__text">
+                                                                          <i class="socicon-facebook"></i>
+                                                                          Sign up with Facebook
+                                                                      </span>
+                                                                  </a>
+                                                                  <a class="btn block btn--icon bg--twitter type--uppercase" href="#">
+                                                                      <span class="btn__text">
+                                                                          <i class="socicon-twitter"></i>
+                                                                          Sign up with Twitter
+                                                                      </span>
+                                                                  </a>
+                                                                  <hr data-title="OR">
+                                                                  <form>
+                                                                      <div class="row">
+                                                                          <div class="col-12">
+                                                                              <input type="email" name="Email Address" placeholder="Email Address" />
+                                                                          </div>
+                                                                          <div class="col-12">
+                                                                              <input type="password" name="Password" placeholder="Password" />
+                                                                          </div>
+                                                                          <div class="col-12">
+                                                                              <button type="submit" class="btn btn--primary type--uppercase">Create Account</button>
+                                                                          </div>
+                                                                          <div class="col-12">
+                                                                              <span class="type--fine-print">By signing up, you agree to the
+                                                                                  <a href="#">Terms of Service</a>
+                                                                              </span>
+                                                                          </div>
+                                                                      </div>
+                                                                      <!--end row-->
+                                                                  </form>
+                                                              </div>
+                                                          </div>
+                                                          <!--end of row-->
+                                                      </div>
+                                                      <!--end of col-->
+                                                  </div>
+                                                  <!--end of row-->
+                                              </div>
+                                              <!--end of container-->
+                                          </section>
+                                      </div>
+                                  </div>
+                              </div>
+                          </li>
+                          <li>
+                              <a href="#" data-notification-link="search-box">
+                                  <i class="stack-search"></i>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="#" data-notification-link="side-menu">
+                                  <i class="stack-dot-3"></i>
+                              </a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          <!--end of row-->
+      </div>
+      <!--end of container-->
+  </section>
+  <!--end bar-->
+  <div class="notification pos-right pos-top side-menu bg--white" data-notification-link="side-menu" data-animation="from-right">
+      <div class="side-menu__module">
+          <a class="btn btn--icon bg--facebook block" href="#">
+              <span class="btn__text">
+                  <i class="socicon-facebook"></i>
+                  Sign up with Facebook
+              </span>
+          </a>
+          <a class="btn btn--icon bg--dark block" href="#">
+              <span class="btn__text">
+                  <i class="socicon-mail"></i>
+                  Sign up with Email
+              </span>
+          </a>
+      </div>
+      <!--end module-->
+      <hr>
+      <div class="side-menu__module">
+          <span class="type--fine-print float-left">Already have an account?</span>
+          <a class="btn type--uppercase float-right" href="#">
+              <span class="btn__text">Login</span>
+          </a>
+      </div>
+      <!--end module-->
+      <hr>
+      <div class="side-menu__module">
+          <ul class="list--loose list--hover">
+              <li>
+                  <a href="wizard.html">
+                      <span class="h5">Try Wizard Checker</span>
+                  </a>
+              </li>
+            <!--  <li>
+                  <a href="#">
+                      <span class="h5">Careers</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="#">
+                      <span class="h5">Investors</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="#">
+                      <span class="h5">Locations</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="#">
+                      <span class="h5">Contact</span>
+                  </a>
+              </li> -->
+          </ul>
+      </div>
+      <!--end module-->
+      <hr>
+      <div class="side-menu__module">
+          <ul class="social-list list-inline list--hover">
+              <li>
+                  <a href="#">
+                      <i class="socicon socicon-google icon icon--xs"></i>
+                  </a>
+              </li>
+              <li>
+                  <a href="#">
+                      <i class="socicon socicon-twitter icon icon--xs"></i>
+                  </a>
+              </li>
+              <li>
+                  <a href="#">
+                      <i class="socicon socicon-facebook icon icon--xs"></i>
+                  </a>
+              </li>
+              <li>
+                  <a href="#">
+                      <i class="socicon socicon-instagram icon icon--xs"></i>
+                  </a>
+              </li>
+              <li>
+                  <a href="#">
+                      <i class="socicon socicon-pinterest icon icon--xs"></i>
+                  </a>
+              </li>
+          </ul>
+      </div>
+  </div>
+  <div class="notification pos-top pos-right search-box bg--white border--bottom" data-animation="from-top" data-notification-link="search-box">
+      <form>
+          <div class="row justify-content-center">
+              <div class="col-lg-6 col-md-8">
+                  <input type="search" name="query" placeholder="Type search query and hit enter" />
+              </div>
+          </div>
+          <!--end of row-->
+      </form>
+  </div>
+  <!--end of notification-->
+  <div class="nav-container ">
+      <div class="bar bar--sm visible-xs">
+          <div class="container">
+              <div class="row">
+                  <div class="col-3 col-md-2">
+                      <a href="index.html">
+                          <img class="logo logo-dark" alt="logo" src="img/logo-dark.png" />
+                          <img class="logo logo-light" alt="logo" src="img/logo-light.png" />
+                      </a>
+                  </div>
+                  <div class="col-9 col-md-10 text-right">
+                      <a href="#" class="hamburger-toggle" data-toggle-class="#menu1;hidden-xs">
+                          <i class="icon icon--sm stack-interface stack-menu"></i>
+                      </a>
+                  </div>
+              </div>
+              <!--end of row-->
+          </div>
+          <!--end of container-->
+      </div>
+      <!--end bar-->
+      <nav id="menu1" class="bar bar--sm bar-1 hidden-xs ">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-1 col-md-2 hidden-xs">
+                      <div class="bar__module">
+                          <a href="index.html">
+                              <img class="logo logo-dark" alt="logo" src="img/logo-dark.png" />
+                              <img class="logo logo-light" alt="logo" src="img/logo-light.png" />
+                          </a>
+                      </div>
+                      <!--end module-->
+                  </div>
+                  <div class="col-lg-11 col-md-12 text-right text-left-xs text-left-sm">
+                      <div class="bar__module">
+                          <ul class="menu-horizontal text-left">
+                              <li class="">
+                                  <span class="dropdown__trigger">Home</span>
+                                  <!--end dropdown container-->
+                              </li>
+                          </ul>
+                      </div>
+                      <!--end module-->
+                      <div class="bar__module">
+                          <a class="btn btn--sm type--uppercase" href="wizard.html">
+                              <span class="btn__text">
+                                  Try Wizard Checker
+                              </span>
+                          </a>
+                          <a class="btn btn--sm btn--primary type--uppercase" href="#">
+                              <span class="btn__text">
+                                  Get Started
+                              </span>
+                          </a>
+                      </div>
+                      <!--end module-->
+                  </div>
+              </div>
+              <!--end of row-->
+          </div>
+          <!--end of container-->
+      </nav>
+      <!--end bar-->
+  </div>
+  <!-- Ratio Checker Start -->
+  <section id="checker">
+      <div class="container boxed bg--secondary boxed--lg boxed--border">
+        <div class="row">
+          <div class="col-md-6" data-tooltip="Set default here.">
+            <label>Set Starting Ratio</label>
+            <div class="input-select">
+                <select id="set-ratios" name="finish">
+                    <option selected disabled value="">Set Ratio</option>
+                    <option value="16:9">16:9</option>
+                    <option value="4:3">4:3</option>
+                    <option value="1:1">1:1</option>
+                </select>
+            </div>
+          </div>
+          <div class="col-md-6" data-tooltip="Set default orientation.">
+            <label>Set Orientation</label>
+            <div class="input-select">
+                <select id="set-orientation" name="orientation">
+                    <option selected disabled value="">Set Orientation</option>
+                    <option value="portrait">Portrait</option>
+                    <option value="landscape">Landscape</option>
+                </select>
+            </div>
+          </div>
+        	<div class="col-md-3" data-tooltip="Set your desired ratio here.">
+        		<label>Aspect Ratio</label>
+        		<input type=number value="4" id="a1">
+        	</div>
+          <div class="col-md-3">
+        		<label></label>
+        		<input type=number value="3" id="a2">
+        	</div>
+        	<div class="col-md-3" data-tooltip="Resize ratio to desired width.">
+        		<label>Resize to width:</label>
+        		<input type=number value="400" id="size">
+        	</div>
+          <div class="col-md-2" data-tooltip="Click to resize ratio.">
+            <button class="btn btn--sm btn--primary type--uppercase" id="resize">Resize</button>
+          </div>
+        </div class="row">
+        <div class="row pad-top-30 margin-left-0">
+         <div id="container"  class="ui-widget-content">
+            <div id="pic"><div id="text" data-tooltip="Your Resized ratio specs, drag the corner to resize."></div>
+            	<div class="grab-icon"></div>
+            </div>
+         </div>
+       </div>
+
+   </section>
+   <!-- Ratio Checker End -->
+   <footer class="footer-3 text-center-xs space--xs ">
+       <div class="container">
+           <div class="row">
+               <div class="col-md-6">
+                   <img alt="Image" class="logo" src="img/logo-dark.png" />
+                   <ul class="list-inline list--hover">
+                       <li class="list-inline-item">
+                           <a href="#checker">
+                               <span class="type--fine-print">Get Started</span>
+                           </a>
+                       </li>
+                       <li class="list-inline-item">
+                           <a href="#">
+                               <span class="type--fine-print">help@ratiochecker.com</span>
+                           </a>
+                       </li>
+                   </ul>
+               </div>
+               <div class="col-md-6 text-right text-center-xs">
+                   <ul class="social-list list-inline list--hover">
+                       <li class="list-inline-item">
+                           <a href="#">
+                               <i class="socicon socicon-google icon icon--xs"></i>
+                           </a>
+                       </li>
+                       <li class="list-inline-item">
+                           <a href="#">
+                               <i class="socicon socicon-twitter icon icon--xs"></i>
+                           </a>
+                       </li>
+                       <li class="list-inline-item">
+                           <a href="#">
+                               <i class="socicon socicon-facebook icon icon--xs"></i>
+                           </a>
+                       </li>
+                       <li class="list-inline-item">
+                           <a href="#">
+                               <i class="socicon socicon-instagram icon icon--xs"></i>
+                           </a>
+                       </li>
+                   </ul>
+               </div>
+           </div>
+           <!--end of row-->
+           <div class="row">
+               <div class="col-md-6">
+                   <p class="type--fine-print">
+                       A Open Source Project
+                   </p>
+               </div>
+               <div class="col-md-6 text-right text-center-xs">
+                   <span class="type--fine-print">&copy;
+                       <span class="update-year"></span> RatioChecker.com</span>
+                   <a class="type--fine-print" href="#">Privacy Policy</a>
+                   <a class="type--fine-print" href="#">Github</a>
+               </div>
+           </div>
+           <!--end of row-->
+       </div>
+       <!--<div class="loader"></div>-->
+       <a class="back-to-top inner-link" href="#start" data-scroll-class="100vh:active">
+           <i class="stack-interface stack-up-open-big"></i>
+       </a>
+       <script src="js/flickity.min.js"></script>
+       <script src="js/easypiechart.min.js"></script>
+       <script src="js/parallax.js"></script>
+       <script src="js/typed.min.js"></script>
+       <script src="js/datepicker.js"></script>
+       <script src="js/isotope.min.js"></script>
+       <script src="js/ytplayer.min.js"></script>
+       <script src="js/lightbox.min.js"></script>
+       <script src="js/granim.min.js"></script>
+       <script src="js/jquery.steps.min.js"></script>
+       <script src="js/countdown.min.js"></script>
+       <script src="js/twitterfetcher.min.js"></script>
+       <script src="js/spectragram.min.js"></script>
+       <script src="js/smooth-scroll.min.js"></script>
+       <script src="js/scripts.js"></script>
+       <!--end of container-->
+
+   </footer>
+
+</body>
+
+</html>
